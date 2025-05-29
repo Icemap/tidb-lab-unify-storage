@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "tidb-lab-unify-storage"
+version = "0.1.0"
+description = ""
+package-mode = false
+authors = ["Cheese <qizhi.wang@pingcap.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+dotenv = "^0.9.9"
+mysql-connector-python = "^9.2.0"
+pymysql = "^1.1.1"
+pandas = "^2.2.3"
+litellm = "^1.71.1"
+streamlit = "^1.45.1"
+boto3 = "^1.38.23"
+sqlmodel = "^0.0.24"
+cryptography = "^45.0.3"
+protobuf = "^5.26.1"
+pymilvus = "2.5.10"
+grpcio = "~1.64.0"
+grpcio-tools = "~1.64.0"
+elasticsearch = "^8.14.0"
+pytidb = "^0.0.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
