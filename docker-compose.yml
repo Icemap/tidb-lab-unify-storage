@@ -94,6 +94,8 @@ services:
       # Database connection details for services within docker-compose network
       MYSQL_HOST: mysql # Service name of MySQL container
       MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mydatabase}
       ELASTICSEARCH_HOST: elasticsearch # Service name of Elasticsearch container
       ELASTICSEARCH_PORT: 9200
       NEO4J_HOST: neo4j # Service name of Neo4j container

@@ -1,4 +1,6 @@
+import os
 import pandas as pd
+from pydantic_core import MultiHostUrl
 from sqlalchemy import func
 from sqlmodel import Field, SQLModel, Session, create_engine, select, delete
 from pymilvus import MilvusClient, DataType
@@ -12,7 +14,16 @@ from typing import List
 from common import LLM_RESPONSE_STYLE, RAG_PROMPT_TEMPLATE
 
 # RDB
-engine = create_engine("mysql+pymysql://root:root@192.168.0.20:3306/mydatabase")
+engine = create_engine(
+    MultiHostUrl.build(
+        scheme="mysql+pymysql",
+        username="root",
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=os.getenv("MYSQL_PORT"),
+        path=os.getenv("MYSQL_DATABASE")
+    )
+)
 
 # Embedding
 embedding_model = "bedrock/amazon.titan-embed-text-v2:0"
@@ -23,13 +34,13 @@ llm_model = "bedrock/us.amazon.nova-lite-v1:0"
 
 # Milvus
 milvus_client = MilvusClient(
-    uri="http://192.168.0.20:19530",
+    uri=f"http://{os.getenv('MILVUS_HOST')}:{os.getenv('MILVUS_HTTP_PORT')}",
     token="root:Milvus"
 )
 milvus_collection_name = "employee_id_mapping"
 
 # Elasticsearch
-es = Elasticsearch("http://192.168.0.20:9200")
+es = Elasticsearch(f"http://{os.getenv('ELASTICSEARCH_HOST')}:{os.getenv('ELASTICSEARCH_PORT')}")
 ES_INDEX_NAME = "employee_id_mapping"
 es_mapping = {
     "mappings": {

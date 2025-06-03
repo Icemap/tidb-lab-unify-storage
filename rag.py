@@ -8,16 +8,28 @@ from litellm import completion, embedding
 import streamlit as st
 
 from typing import List, Optional, Any
-
+from pydantic_core import MultiHostUrl
 from common import LLM_RESPONSE_STYLE, RAG_PROMPT_TEMPLATE
+from dotenv import load_dotenv
 
-engine = create_engine("mysql+pymysql://root:root@192.168.0.20:3306/mydatabase")
+load_dotenv()
+
+engine = create_engine(
+    MultiHostUrl.build(
+        scheme="mysql+pymysql",
+        username="root",
+        password=os.getenv("MYSQL_ROOT_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=os.getenv("MYSQL_PORT"),
+        path=os.getenv("MYSQL_DATABASE")
+    )
+)
 embedding_model = "bedrock/amazon.titan-embed-text-v2:0"
 embedding_dimensions = 1024
 
 llm_model = "bedrock/us.amazon.nova-lite-v1:0"
 milvus_client = MilvusClient(
-    uri="http://192.168.0.20:19530",
+    uri=f"http://{os.getenv('MILVUS_HOST')}:{os.getenv('MILVUS_HTTP_PORT')}",
     token="root:Milvus"
 )
 milvus_collection_name = "employee_id_mapping"
