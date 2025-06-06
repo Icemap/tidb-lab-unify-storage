@@ -51,10 +51,12 @@ employees = [
 table = db.open_table(table_name)
 if table is None:
     table = db.create_table(schema=Employee)
+
+if not table.has_fts_index("intro"):
     table.create_fts_index("intro")
 
 
-st.title("🔍 RAG Demo")
+st.title("🔍 TiDB RAG Demo")
 
 st.subheader("Database Operations")
 

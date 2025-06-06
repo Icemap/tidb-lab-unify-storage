@@ -104,7 +104,7 @@ milvus_client.create_collection(
     index_params=index_params
 )
 
-st.title("🔍 RAG Demo")
+st.title("🔍 Improved RAG Demo")
 
 st.subheader("Database Operations")
 
