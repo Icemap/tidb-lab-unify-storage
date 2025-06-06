@@ -15,13 +15,15 @@ from common import LLM_RESPONSE_STYLE, RAG_PROMPT_TEMPLATE
 
 # RDB
 engine = create_engine(
-    MultiHostUrl.build(
-        scheme="mysql+pymysql",
-        username="root",
-        password=os.getenv("MYSQL_ROOT_PASSWORD"),
-        host=os.getenv("MYSQL_HOST"),
-        port=os.getenv("MYSQL_PORT"),
-        path=os.getenv("MYSQL_DATABASE")
+    str(
+        MultiHostUrl.build(
+            scheme="mysql+pymysql",
+            username="root",
+            password=os.getenv("MYSQL_ROOT_PASSWORD"),
+            host=os.getenv("MYSQL_HOST"),
+            port=int(os.getenv("MYSQL_PORT", "4000")),
+            path=os.getenv("MYSQL_DATABASE")
+        )
     )
 )
 
@@ -34,7 +36,7 @@ llm_model = "bedrock/us.amazon.nova-lite-v1:0"
 
 # Milvus
 milvus_client = MilvusClient(
-    uri=f"http://{os.getenv('MILVUS_HOST')}:{os.getenv('MILVUS_HTTP_PORT')}",
+    uri=f"http://{os.getenv('MILVUS_HOST')}:{os.getenv('MILVUS_GRPC_PORT')}",
     token="root:Milvus"
 )
 milvus_collection_name = "employee_id_mapping"
