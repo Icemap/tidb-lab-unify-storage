@@ -58,7 +58,7 @@ SQLModel.metadata.create_all(engine)
 employees = [
     Employee(id=1, name="Cheese Wang", intro="Cheese is a Senior Software Engineer of AI Application at PingCAP, the company behind TiDB"),
     Employee(id=2, name="Hao Huo", intro="Hao Huo is an engineer of PingCAP, the company behind TiDB | Build pingcap/autoflow / OSSInsight.io"),
-    Employee(id=3, name="Todd Bao", intro="Todd Bao is the Head of Engagement Innovation at PingCAP, the company behind TiDB")
+    Employee(id=3, name="Humble BGL", intro="Humble BGL is the Head of Engagement Innovation at PingCAP, the company behind TiDB")
 ]
 
 # Define the employee id mapping schema in Milvus
