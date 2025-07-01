@@ -82,6 +82,8 @@ services:
       - "3000:8080"
       - "8501:8501"
       - "8502:8502"
+      - "8503:8503"
+      - "8504:8504"
     environment:
       SERVERLESS_CLUSTER_HOST: ${SERVERLESS_CLUSTER_HOST}
       SERVERLESS_CLUSTER_PORT: ${SERVERLESS_CLUSTER_PORT}
