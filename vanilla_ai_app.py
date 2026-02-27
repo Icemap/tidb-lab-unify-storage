@@ -3,7 +3,7 @@ import streamlit as st
 
 from common import LLM_RESPONSE_STYLE
 
-llm_model = "bedrock/us.amazon.nova-lite-v1:0"
+llm_model = "bedrock/us.amazon.nova-pro-v1:0"
 
 st.title("🔍 Vanilla AI Q&A Demo")
 
@@ -22,6 +22,9 @@ if st.button("Send") and query:
         response = completion(
             model=llm_model,
             messages=[{"content": prompt, "role": "user"}],
+            # We use AWS Inference Profile here to track costs.
+            # If you are using this code outside of TiDB Labs, you need to remove the line below.
+            model_id="arn:aws:bedrock:us-west-2:841162690310:application-inference-profile/4i83xkynoouo",
         )
 
         st.markdown(f"### 🤖 {llm_model}")
